@@ -12,6 +12,7 @@ on:
         options:
           - production
           - staging
+          - main
 env:
   AWS_REGION : "us-east-1"   
 permissions:
@@ -27,7 +28,7 @@ jobs:
         # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
           node-version: 16.20.2
       - name: Print node version
-        run: "echo $(node -vn)"
+        run: "echo $(node -v)"
       - name: Print npm version
         run: "echo $(npm --version)"
       - name: Print aws cli version
