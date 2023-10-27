@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.inputs.branch_name }}
-          path: repo
+          path: repo/test_repo
 
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
