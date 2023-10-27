@@ -50,7 +50,7 @@ jobs:
       - name: List buckets
         run: aws s3 ls
 
-      # - name: Print GITHUB_WORKSPACE value
-      #   run: echo ${GITHUB_WORKSPACE}
-      - name: Put object in test bucket
-        run: aws s3api put-object --bucket deuex-test-bucket --key dir1/file3.txt --body repo/test_repo/file3.txt
+      - name: Print directory content
+        run: ls -la
+      # - name: Put object in test bucket
+      #   run: aws s3api put-object --bucket deuex-test-bucket --key dir1/file3.txt --body repo/test_repo/file3.txt
