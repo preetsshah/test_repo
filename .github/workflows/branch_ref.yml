@@ -36,8 +36,9 @@ jobs:
         run: |
           if [ "${{ github.event.inputs.deploy_to_staging }}" == "true" ]; then
             echo "GITHUB_VAR_1=true" >> $GITHUB_ENV
-            echo "${{ env.GITHUB_VAR_1 }}"
           else
             echo "GITHUB_VAR_1=false" >> $GITHUB_ENV
-            echo "${{ env.GITHUB_VAR_1 }}"
           fi
+
+      - name: Test
+        run: echo ${{ env.GITHUB_VAR_1 }}
