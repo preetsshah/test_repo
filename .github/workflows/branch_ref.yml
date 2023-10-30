@@ -35,9 +35,9 @@ jobs:
       - name: Check input value
         run: |
           if [ "${{ github.event.inputs.deploy_to_staging }}" == "true" ]; then
-            echo "true" >> "$GITHUB_VAR_1"
-            echo "${{ GITHUB_VAR_1 }}"
+            echo "GITHUB_VAR_1=true" >> $GITHUB_ENV
+            echo "$GITHUB_VAR_1"
           else
-            echo "false" >> "$GITHUB_VAR_1"
-            echo "${{ GITHUB_VAR_1 }}"
+            echo "GITHUB_VAR_1=false" >> $GITHUB_ENV
+            echo "$GITHUB_VAR_1"
           fi
