@@ -1,0 +1,43 @@
+#For the provider URL: Use https://token.actions.githubusercontent.com
+#For the "Audience": Use sts.amazonaws.com 
+name: Giverbox-web build
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_to_staging:
+        description: "Deploy to staging environment?"
+        default: "false"
+        required: true
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+env:
+  AWS_REGION : "us-east-1"   
+  STAGING_AWS_REGION: "ap-south-1"
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
+jobs:
+  npm-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      # checkout repository with brnach selected for deploy_to_staging
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # ref: ${{ github.event.inputs.deploy_to_staging }}
+          ref: ${{ GITHUB_REF_NAME }}
+
+      - name: Print branch name
+        run: echo "${{ GITHUB_REF_NAME }}"
+
+      - name: Check input value
+        run: |
+          if [ "${{ github.event.inputs.deploy_to_staging }}" == "true" ]; then
+            echo "true" >> "$GITHUB_VAR_1"
+            echo "${{ GITHUB_VAR_1 }}"
+          else
+            echo "false" >> "$GITHUB_VAR_1"
+            echo "${{ GITHUB_VAR_1 }}"
+          fi
