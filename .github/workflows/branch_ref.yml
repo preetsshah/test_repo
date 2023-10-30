@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           # ref: ${{ github.event.inputs.deploy_to_staging }}
-          ref: ${{ GITHUB_REF_NAME }}
+          ref: ${{ github.ref.GITHUB_REF_NAME }}
 
       - name: Print branch name
         run: echo "${{ GITHUB_REF_NAME }}"
