@@ -30,7 +30,7 @@ jobs:
           ref: ${{ github.ref.GITHUB_REF_NAME }}
 
       - name: Print branch name
-        run: echo "${{ GITHUB_REF_NAME }}"
+        run: echo "${GITHUB_REF#refs/heads/}"
 
       - name: Check input value
         run: |
