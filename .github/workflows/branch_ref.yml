@@ -1,6 +1,6 @@
 #For the provider URL: Use https://token.actions.githubusercontent.com
 #For the "Audience": Use sts.amazonaws.com 
-name: Giverbox-web build
+name: Testing branch variable
 on:
   workflow_dispatch:
     inputs:
