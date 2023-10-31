@@ -23,22 +23,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # checkout repository with brnach selected for deploy_to_staging
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          # ref: ${{ github.event.inputs.deploy_to_staging }}
-          ref: ${{ github.ref.GITHUB_REF_NAME }}
+      # - name: Checkout
+      #   uses: actions/checkout@v2
+      #   with:
+      #     # ref: ${{ github.event.inputs.deploy_to_staging }}
+      #     ref: ${{ github.ref.GITHUB_REF_NAME }}
 
-      - name: Print branch name
-        run: echo "${GITHUB_REF#refs/heads/}"
+      # - name: Print branch name
+      #   run: echo "${GITHUB_REF#refs/heads/}"
 
-      - name: Check input value
-        run: |
-          if [ "${{ github.event.inputs.deploy_to_staging }}" == "true" ]; then
-            echo "GITHUB_VAR_1=true" >> $GITHUB_ENV
-          else
-            echo "GITHUB_VAR_1=false" >> $GITHUB_ENV
-          fi
+      # - name: Check input value
+      #   run: |
+      #     if [ "${{ github.event.inputs.deploy_to_staging }}" == "true" ]; then
+      #       echo "GITHUB_VAR_1=true" >> $GITHUB_ENV
+      #     else
+      #       echo "GITHUB_VAR_1=false" >> $GITHUB_ENV
+      #     fi
 
       - name: Test
-        run: echo ${{ env.GITHUB_VAR_1 }}
+        run: echo ${{ github.ref.GITHUB_ACTOR }}
