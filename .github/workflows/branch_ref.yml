@@ -41,4 +41,4 @@ jobs:
       #     fi
 
       - name: Test
-        run: echo ${{ github.ref.GITHUB_ACTOR }}
+        run: echo ${GITHUB_ACTOR}
