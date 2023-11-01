@@ -27,5 +27,5 @@ jobs:
         run: |
           echo "TIMESTAMP=$(date "+%Y-%m-%d_%H-%M-%S")" >> $GITHUB_ENV
           echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-          echo "ACTOR=${{ github.actor }}" >> $GITHUB_ENV
+          echo "ACTOR=${ github.actor }" >> $GITHUB_ENV
           echo "Value = ${{ env.ACTOR }}"
