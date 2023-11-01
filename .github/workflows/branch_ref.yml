@@ -23,9 +23,9 @@ jobs:
     steps:
       # Update build artifacts on production environment
       - name: If true condition
-        if: ${{ github.event.inputs.deploy_to_production }} == 'true'
+        if: ${{ github.event.inputs.deploy_to_production }} == "true"
         run: echo "true"
 
       - name: Else false condition
-        if: ${{ github.event.inputs.deploy_to_production }} == 'false'
+        if: ${{ github.event.inputs.deploy_to_production }} == "false"
         run: echo "false"
