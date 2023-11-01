@@ -27,4 +27,4 @@ jobs:
         run: echo "true"
 
       - name: Print actor
-        run: echo '"${GITHUB_ACTOR}"'
+        run: echo '${GITHUB_ACTOR}'
