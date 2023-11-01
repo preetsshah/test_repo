@@ -22,9 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Update build artifacts on production environment
-      - name: If true condition
-        if: github.event.inputs.deploy_to_production == 'true'
-        run: echo "true"
-
-      - name: Print actor
-        run: echo '"'${GITHUB_ACTOR}'"'
+      # Export timestamp and branch name to environment variables
+      - name: Export env variables
+        run: |
+          echo "TIMESTAMP=$(date "+%Y-%m-%d_%H-%M-%S")" >> $GITHUB_ENV
+          echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          echo "ACTOR=${GITHUB_ACTOR}" >> $GITHUB_ENV
+          echo $ACTOR
