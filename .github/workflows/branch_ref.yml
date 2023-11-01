@@ -26,6 +26,5 @@ jobs:
         if: github.event.inputs.deploy_to_production == 'true'
         run: echo "true"
 
-      - name: Else false condition
-        if: github.event.inputs.deploy_to_production == 'false'
-        run: echo "false"
+      - name: Print actor
+        run: echo "${GITHUB_ACTOR}"
