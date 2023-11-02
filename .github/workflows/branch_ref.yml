@@ -38,8 +38,8 @@ jobs:
           role-session-name: samplerolesession
           aws-region: ${{ env.AWS_REGION }}
 
-      # Print creds
-      - name: print ephemeral creds
+      # test file
+      - name: Create a file
         run: |
           echo "Hey there!" > temp.txt
           cat temp.txt
@@ -48,8 +48,8 @@ jobs:
         uses: zoispag/action-s3-upload-artifact@v1
         id: s3
         with:
-          access_key_id: ${{ env.AWS_ACCESS_KEY_ID }}
-          secret_access_key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          access_key_id: $AWS_ACCESS_KEY_ID
+          secret_access_key: $AWS_SECRET_ACCESS_KEY
           bucket: deuex-giverbox-web
           bucket_root: branch/staging/build/
           key: temp.txt
