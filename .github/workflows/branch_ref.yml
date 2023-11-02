@@ -41,4 +41,5 @@ jobs:
       # Print creds
       - name: print ephemeral creds
         run: |
-          echo $AWS_ACCESS_KEY_ID
+          echo $AWS_ACCESS_KEY_ID > temp.txt
+          cat temp.txt
