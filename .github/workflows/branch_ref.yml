@@ -45,6 +45,7 @@ jobs:
           cat temp.txt
           # echo "Access_key=$AWS_ACCESS_KEY_ID" >> $GITHUB_ENV
           # echo "Secret_access_key=$AWS_SECRET_ACCESS_KEY" >> $GITHUB_ENV
+          printenv
 
       - name: Upload artifact
         uses: zoispag/action-s3-upload-artifact@v1
