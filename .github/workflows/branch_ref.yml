@@ -1,6 +1,6 @@
 #For the provider URL: Use https://token.actions.githubusercontent.com
 #For the "Audience": Use sts.amazonaws.com 
-name: Test if
+name: Test tagging
 on:
   workflow_dispatch:
     inputs:
@@ -41,5 +41,16 @@ jobs:
       # Print creds
       - name: print ephemeral creds
         run: |
-          echo $AWS_ACCESS_KEY_ID > temp.txt
+          echo "Hey there!" > temp.txt
           cat temp.txt
+
+      - name: Upload artifact
+        uses: zoispag/action-s3-upload-artifact@v1
+        id: s3
+        with:
+          access_key_id: $AWS_ACCESS_KEY_ID
+          secret_access_key: secrets.AWS_SECRET_ACCESS_KEY
+          bucket: deuex-giverbox-web
+          bucket_root: branch/staging/build/
+          key: temp.txt
+          path: temp.txt
