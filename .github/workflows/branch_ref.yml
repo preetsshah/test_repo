@@ -43,13 +43,15 @@ jobs:
         run: |
           echo "Hey there!" > temp.txt
           cat temp.txt
+          echo "Access_key=$AWS_ACCESS_KEY_ID" >> $GITHUB_ENV
+          echo "Secret_access_key=$AWS_SECRET_ACCESS_KEY" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: zoispag/action-s3-upload-artifact@v1
         id: s3
         with:
-          access_key_id: $AWS_ACCESS_KEY_ID
-          secret_access_key: $AWS_SECRET_ACCESS_KEY
+          access_key_id: ${{ env.Access_key }}
+          secret_access_key: ${{ env.Secret_access_key }}
           bucket: deuex-giverbox-web
           bucket_root: branch/staging/build/
           key: temp.txt
