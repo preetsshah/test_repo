@@ -29,3 +29,16 @@ jobs:
           echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           echo "Workflow_Executor=${{ github.actor }}" >> $GITHUB_ENV
           echo "Value = ${{ env.Workflow_Executor }}"
+
+      # Get ephemeral AWS credentials
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::325487104949:role/Giverbox-Github-OIDC-S3-Role
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Print creds
+      - name: print ephemeral creds
+        run: |
+          echo $AWS_ACCESS_KEY_ID
