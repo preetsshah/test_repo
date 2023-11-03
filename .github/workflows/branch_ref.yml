@@ -67,7 +67,6 @@ jobs:
           access_key_id: ${{ steps.stepoutput.outputs.STEP_KEY }}
           secret_access_key: ${{ steps.stepoutput.outputs.STEP_SECRET_KEY }}
           bucket: deuex-giverbox-web
-          bucket_root: branch/staging/build/
           key: branch/staging/build/
           path: temp.txt
 
