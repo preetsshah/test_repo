@@ -28,7 +28,7 @@ jobs:
           echo "TIMESTAMP=$(date "+%Y-%m-%d_%H-%M-%S")" >> $GITHUB_ENV
           echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           echo "Workflow_Executor=${{ github.actor }}" >> $GITHUB_ENV
-          echo "Value = ${{ env.Workflow_Executor }}"
+          echo "WORKFLOW_STATUS=Succeeded" >> $GITHUB_ENV
 
       # Get ephemeral AWS credentials
       - name: configure aws credentials
@@ -79,3 +79,5 @@ jobs:
         run: |
           echo "Build failed!"
           echo "Build URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "WORKFLOW_STATUS=Failed" >> $GITHUB_ENV
+          echo ${{ env.WORKFLOW_STATUS }}
