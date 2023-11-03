@@ -88,8 +88,11 @@ jobs:
         with:
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}",
+              "text": "Giverbox-web build result: ${{ job.status }}",
               "blocks": [
+                {
+			            "type": "divider"
+		            },
                 {
                   "type": "section",
                   "text": {
@@ -101,9 +104,12 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Workflow executed by: ${{ github.actor }}"
+                    "text": "Workflow executed by: ${{ github.actor }}\nBranch: ${{ env.BRANCH }}"
                   }
-                }
+                },
+                {
+			            "type": "divider"
+		            }
               ]
             }
         env:
