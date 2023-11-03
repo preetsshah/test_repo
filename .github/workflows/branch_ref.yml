@@ -94,14 +94,14 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<!here> GitHub Action build result: *${{ job.status }}*\n><${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build URL>"
+                    "text": "<!here> Giverbox-web build result: *${{ job.status }}* ( <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build URL> )"
                   }
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ">Workflow executed by: ${{ github.actor }}\n>Branch: ${{ env.BRANCH }}"
+                    "text": ">Workflow executed by: `${{ github.actor }}`\n>Branch: `${{ env.BRANCH }}`"
                   }
                 }
               ]
