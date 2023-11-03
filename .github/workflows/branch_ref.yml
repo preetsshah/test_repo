@@ -76,4 +76,6 @@ jobs:
 
       - name: Failure message
         if: ${{ failure() }}
-        run: echo "Build failed!"
+        run: |
+          echo "Build failed!"
+          echo "Build URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
