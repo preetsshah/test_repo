@@ -91,25 +91,19 @@ jobs:
               "text": "Giverbox-web build result: ${{ job.status }}",
               "blocks": [
                 {
-			            "type": "divider"
-		            },
-                {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<!here> GitHub Action build result: *${{ job.status }}*\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build URL>"
+                    "text": "<!here> GitHub Action build result: *${{ job.status }}*\n>${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build URL>"
                   }
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Workflow executed by: ${{ github.actor }}\nBranch: ${{ env.BRANCH }}"
+                    "text": ">Workflow executed by: ${{ github.actor }}\nBranch: ${{ env.BRANCH }}"
                   }
-                },
-                {
-			            "type": "divider"
-		            }
+                }
               ]
             }
         env:
