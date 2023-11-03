@@ -79,5 +79,4 @@ jobs:
         run: |
           echo "Build failed!"
           echo "Build URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          echo "WORKFLOW_STATUS=Failed" >> $GITHUB_ENV
-          echo ${{ env.WORKFLOW_STATUS }}
+          echo "Job status: ${{ job.status }}"
