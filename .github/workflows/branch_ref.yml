@@ -88,13 +88,13 @@ jobs:
         with:
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}",
+              "text": "<!here> GitHub Action build result: ${{ job.status }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action build result: *${{ job.status }}*\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\nBuild URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\nWorkflow executed by: ${{ github.actor }}"
+                    "text": "GitHub Action build result: *${{ job.status }}*\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build URL>"
                   }
                 }
               ]
