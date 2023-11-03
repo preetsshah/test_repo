@@ -83,6 +83,7 @@ jobs:
 
       - name: Send build status to Slack channel
         id: slack
+        if: ${{ !cancelled() }}
         uses: slackapi/slack-github-action@v1.24.0
         with:
           payload: |
