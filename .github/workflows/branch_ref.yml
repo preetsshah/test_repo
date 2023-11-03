@@ -53,18 +53,20 @@ jobs:
         id: stepoutput
         run: >-
           echo "::set-output name=STEP_KEY::$AWS_ACCESS_KEY_ID"
+          echo "::set-output name=STEP_SECRET_KEY::$AWS_SECRET_ACCESS_KEY"
 
       - name: Print step output value
         run: |
           echo "${{ steps.stepoutput.outputs.STEP_KEY }}"
+          echo "${{ steps.stepoutput.outputs.STEP_SECRET_KEY }}"
 
-      # - name: Upload artifact
-      #   uses: zoispag/action-s3-upload-artifact@v1
-      #   id: s3
-      #   with:
-      #     access_key_id: ${{ env.AWS_ACCESS_KEY_ID }}
-      #     secret_access_key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-      #     bucket: deuex-giverbox-web
-      #     bucket_root: branch/staging/build/
-      #     key: temp.txt
-      #     path: temp.txt
+      - name: Upload artifact
+        uses: zoispag/action-s3-upload-artifact@v1
+        id: s3
+        with:
+          access_key_id: ${{ steps.stepoutput.outputs.STEP_KEY }}
+          secret_access_key: ${{ steps.stepoutput.outputs.STEP_SECRET_KEY }}
+          bucket: deuex-giverbox-web
+          bucket_root: branch/staging/build/
+          key: temp.txt
+          path: temp.txt
