@@ -69,7 +69,11 @@ jobs:
           bucket: deuex-giverbox-web
           key: branch/staging/build/
           path: temp.txt
+          
+      - name: Success message
+        if: ${{ success() }}
+        run: echo "Build succeeded!"
 
-      - name: Output path
+      - name: Failure message
         if: ${{ failure() }}
         run: echo "Build failed!"
