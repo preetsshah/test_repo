@@ -62,11 +62,14 @@ jobs:
 
       - name: Upload artifact
         uses: zoispag/action-s3-upload-artifact@v1
-        id: s3
+        id: s3upload
         with:
           access_key_id: ${{ steps.stepoutput.outputs.STEP_KEY }}
           secret_access_key: ${{ steps.stepoutput.outputs.STEP_SECRET_KEY }}
           bucket: deuex-giverbox-web
           bucket_root: branch/staging/build/
-          key: temp.txt
+          key: branch/staging/build/
           path: temp.txt
+
+      - name: Output path
+        run: echo ${{ steps.s3upload.outputs.object_path }}
