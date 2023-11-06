@@ -1,2 +1,27 @@
 #For the provider URL: Use https://token.actions.githubusercontent.com
 #For the "Audience": Use sts.amazonaws.com 
+name: Test tagging
+on:
+  workflow_dispatch:
+    # inputs:
+    #   deploy_to_production:
+    #     description: "Deploy to production environment?"
+    #     default: "false"
+    #     required: true
+    #     type: choice
+    #     options:
+    #       - 'true'
+    #       - 'false'
+env:
+  AWS_REGION : "us-east-1"
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
+jobs:
+  npm-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      # Update build artifacts on production environment
+      # Export timestamp and branch name to environment variables
+      - name: Export env variables
+        run: echo "Please execute the workflow with Production or Staging branch"
