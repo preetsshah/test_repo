@@ -1,0 +1,56 @@
+#For the provider URL: Use https://token.actions.githubusercontent.com
+#For the "Audience": Use sts.amazonaws.com 
+name: AWS OIDC Connect Demo
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: "Select the branch to build with"
+        default: "staging"
+        required: true
+        type: choice
+        options:
+          - production
+          - staging
+          - main
+env:
+  AWS_REGION : "us-east-1"   
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
+jobs:
+  DemoOIDC:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.0
+        with:
+        # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
+          node-version: 16.20.2
+      - name: Print node version
+        run: "echo $(node -v)"
+      - name: Print npm version
+        run: "echo $(npm --version)"
+      - name: Print aws cli version
+        run: "echo $(aws --version)"
+      # checkout of repo1 - where you have your workflow file
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch_name }}
+          path: repo/test_repo
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::325487104949:role/OIDC-Role-For-S3
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: List buckets
+        run: aws s3 ls
+
+      # - name: Print directory content
+        # run: ls -la && ls -la repo
+      - name: Put object in test bucket
+        run: aws s3api put-object --bucket deuex-test-bucket --key dir1/file3.txt --body ${GITHUB_WORKSPACE}/repo/test_repo/file3.txt

@@ -1,0 +1,111 @@
+#For the provider URL: Use https://token.actions.githubusercontent.com
+#For the "Audience": Use sts.amazonaws.com 
+name: Test tagging
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_to_production:
+        description: "Deploy to production environment?"
+        default: "false"
+        required: true
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+env:
+  AWS_REGION : "us-east-1"
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
+jobs:
+  npm-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      # Update build artifacts on production environment
+      # Export timestamp and branch name to environment variables
+      - name: Export env variables
+        run: |
+          echo "TIMESTAMP=$(date "+%Y-%m-%d_%H-%M-%S")" >> $GITHUB_ENV
+          echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          echo "Workflow_Executor=${{ github.actor }}" >> $GITHUB_ENV
+          echo "WORKFLOW_STATUS=Succeeded" >> $GITHUB_ENV
+
+      # Get ephemeral AWS credentials
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::325487104949:role/Giverbox-Github-OIDC-S3-Role
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
+
+      # test file
+      - name: Create a file
+        run: |
+          echo "Hey there!" > temp.txt
+          cat temp.txt
+          # echo "Access_key=$AWS_ACCESS_KEY_ID" >> $GITHUB_ENV
+          # echo "Secret_access_key=$AWS_SECRET_ACCESS_KEY" >> $GITHUB_ENV
+          # printenv
+          echo ${{ env.AWS_ACCESS_KEY_ID }}
+
+      # test file
+      - name: Step-output
+        id: stepoutput
+        run: >-
+          echo "::set-output name=STEP_KEY::$AWS_ACCESS_KEY_ID"
+          echo "::set-output name=STEP_SECRET_KEY::$AWS_SECRET_ACCESS_KEY"
+
+      - name: Print step output value
+        run: |
+          echo "${{ steps.stepoutput.outputs.STEP_KEY }}"
+          echo "${{ steps.stepoutput.outputs.STEP_SECRET_KEY }}"
+
+      - name: Upload artifact
+        uses: zoispag/action-s3-upload-artifact@v1
+        id: s3upload
+        with:
+          access_key_id: ${{ env.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          bucket: deuex-giverbox-web
+          key: branch/staging/build/
+          path: temp.txt
+          
+      - name: Success message
+        if: ${{ success() }}
+        run: echo "Build succeeded!"
+
+      - name: Failure message
+        if: ${{ failure() }}
+        run: |
+          echo "Build failed!"
+          echo "Build URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "Job status: ${{ job.status }}"
+
+      - name: Send build status to Slack channel
+        id: slack
+        if: ${{ !cancelled() }}
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "Giverbox-web build result: ${{ job.status }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<!here> Giverbox-web build result: *${{ job.status }}* ( <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build URL> )"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ">Workflow executed by: `${{ github.actor }}`\n>Branch: `${{ env.BRANCH }}`"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

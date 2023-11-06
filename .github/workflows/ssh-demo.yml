@@ -1,0 +1,76 @@
+#For the provider URL: Use https://token.actions.githubusercontent.com
+#For the "Audience": Use sts.amazonaws.com 
+name: Giverbox-web build
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_to_staging:
+        description: "Deploy to staging environment?"
+        default: "false"
+        required: true
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+env:
+  AWS_REGION : "us-east-1"
+  STAGING_AWS_REGION: "ap-south-1"   
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
+jobs:
+  npm-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      # Install node v16.20.2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.0
+        with:
+          node-version: 16.20.2
+
+      # Get ephemeral AWS credentials
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::325487104949:role/Giverbox-Github-OIDC-S3-Role
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
+
+      # checkout repository with brnach selected for branch_name
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref.GITHUB_REF_NAME }}
+
+      # Export timestamp and branch name to environment variables
+      - name: Export env variables
+        run: |
+          echo "TIMESTAMP=$(date "+%Y-%m-%d_%H-%M-%S")" >> $GITHUB_ENV
+          echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
+      # Install dependencies from package.json file
+      - name: Install dependencies
+        run: npm i
+
+      # Build server
+      - name: Build server
+        run: CI=false npm run build
+
+      # Compress build directory
+      - name: Compress the build files
+        run:  tar -czf build-${{ env.TIMESTAMP }}.tgz build/
+
+      # Upload build artifacts to S3
+      - name: Upload build.tgz to S3 bucket
+        run: aws s3api put-object --bucket deuex-giverbox-web --key branch/${{ env.BRANCH }}/build/build-${{ env.TIMESTAMP }}.tgz --body build-${{ env.TIMESTAMP }}.tgz
+      
+      # Update build artifacts on Staging environment
+      - name: Update build artifacts
+        run: |
+          sudo apt-get update && sudo apt-get install -y sshpass && \
+          echo "${{ secrets.PEM_CONTENT }}" > giverbox_key.pem && chmod 400 giverbox_key.pem && \
+          export PublicIP=$(aws ec2 describe-instances --filters "Name=tag:Environment,Values=staging" --region ap-south-1 | grep PublicIpAddress | awk -F "\"" '{print $4}') && \
+          ssh -i giverbox_key.pem -o StrictHostKeyChecking=no ${{ secrets.PRODUCTION_USER }}@$PublicIP "cd /tmp && \
+          aws s3 get-object --bucket deuex-giverbox-web --key branch/${{ env.BRANCH }}/build/build-${{ env.TIMESTAMP }}.tgz --region ${{ env.AWS_REGION }} && \
+          tar -xzf build-${{ env.TIMESTAMP }}.tgz && \
+          cp -R build /opt/giverbox-web/ "
