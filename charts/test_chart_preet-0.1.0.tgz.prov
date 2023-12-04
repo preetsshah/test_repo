@@ -1,0 +1,29 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+apiVersion: v2
+appVersion: 1.16.0
+description: A Helm chart for Kubernetes
+name: test_chart_preet
+type: application
+version: 0.1.0
+
+...
+files:
+  test_chart_preet-0.1.0.tgz: sha256:4070e3f677ec0ace0cb0b96b45287b9ebc1347d8341abd8d9a5b32e738634948
+-----BEGIN PGP SIGNATURE-----
+
+wsFcBAEBCgAQBQJlbhg/CRCU3VJn5f07rQAAq/oQAGlW1LrsUiCHMwtNIZVF/Mvl
+L/7eKFb03wZ8lDCMn/+uDgn/4fpbBQBafgP43z6eiqXUkQNkJbZ0Rw1uyCETBiPC
+iAbXVKbHa1JPo7KTl6sC7YF/RIfENHMG7kAE++KyYqa9WAkVXzTtNcJH/uR6SiQR
+dnXHuz1oa8BQkXEetLGQqR1lF4uzcbjHiGrFuBoKcYuVRfK8YrElZHb2Ksn2ijD3
+TvVpFiqU6WtanzWf48aNKlutKz77R4SyG6A9cyc/nb1DNhyfNKJMVcFhCl2SBRcP
+KAYB5r3NIB4Z53vGp32XDWYL227uwsGUs80bfTDLKwNR6EQym+6nL5gmh838e1GW
+lXzobvno3k0MfQni2LrfUiGMsBGJiilflBOAYfjkPhV3qnuY81PTNodq9jtKCyHY
+he+7w6Ex2QD42I23gfk3AJuNhW/MogAY6P57TEN3flDiqHGLG9Ran6HkejwexrV2
+SkaVC1LuVRcj2T0c05Sf+SKQp/TT+W+m7gQh5r3urCyw9v+YtomZyxlIZYGc+gSS
+QzO7xPVXRI01B1viw3RinqAaiviMBXrQJlDRD/+q94qJpngan8IOqP+C78sMdCZN
+SV60qUKTOPabUl7tz2ZQfQo/2RJsMukmrBGCs3hMSc2xMf26+Cuit3ASfJ6rgoFF
+GscD3gjRBDShEIpunFCO
+=i4aN
+-----END PGP SIGNATURE-----
