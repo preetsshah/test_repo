@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        parallel-machine: [1, 2, 3, 4]
+        parallel-machine: [1, 2]
     environment: test
     steps:
       - name: Print output
@@ -58,4 +58,6 @@ jobs:
             echo "${{ github.event_name }}"
             echo "${{ github.event.pull_request.labels.*.name }}"
             echo "${{ github.event.pull_request.draft }}"
+      - name: Print machine
+        run: |
             echo "Running on parallel machine ${{ matrix.parallel-machine }}"
