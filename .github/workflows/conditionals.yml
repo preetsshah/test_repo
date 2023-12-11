@@ -36,27 +36,25 @@ concurrency:
 
 jobs:
   cypress-ci-mysql:
-    if: |
-        github.event_name == 'schedule'
-            || ( github.event_name == 'pull_request'
-                 && contains(github.event.pull_request.labels.*.name, 'e2e')
-                 && github.event.pull_request.draft == false
-               )
+    # if: |
+    #     github.event_name == 'schedule'
+    #         || ( github.event_name == 'pull_request'
+    #              && contains(github.event.pull_request.labels.*.name, 'e2e')
+    #              && github.event.pull_request.draft == false
+    #            )
     runs-on: ubuntu-latest
     environment: test
     steps:
       - name: Print output
         run: |
-          if [[ ${{ github.event_name }} == 'schedule' || ( ${{ github.event_name }} == 'pull_request' && contains(${{ github.event.pull_request.labels.*.name }}, 'e2e') && ${{ github.event.pull_request.draft }} == false ) ]]; then
-            echo "${{ github.event_name }}"
-            echo "${{ github.event_name }}"
-            echo "${{ github.event.pull_request.labels.*.name }}"
-            echo "${{ github.event.pull_request.draft }}"
-          else
-            echo "Workflow should not run based on the conditions."
-            echo "${{ github.event_name }}"
+          # if [[ ${{ github.event_name }} == 'schedule' || ${{ github.event_name }} == 'push' || ${{ github.event_name }} == 'workflow_dispatch' || ( ${{ github.event_name }} == 'pull_request' && contains(${{ github.event.pull_request.labels.*.name }}, 'e2e') && ${{ github.event.pull_request.draft }} == false ) ]]; then
             echo "${{ github.event_name }}"
             echo "${{ github.event.pull_request.labels.*.name }}"
             echo "${{ github.event.pull_request.draft }}"
-            exit 1
-          fi
+          # else
+          #   echo "Workflow should not run based on the conditions."
+          #   echo "${{ github.event_name }}"
+          #   echo "${{ github.event.pull_request.labels.*.name }}"
+          #   echo "${{ github.event.pull_request.draft }}"
+          #   exit 1
+          # fi
