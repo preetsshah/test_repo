@@ -60,4 +60,4 @@ jobs:
             echo "${{ github.event.pull_request.draft }}"
       - name: Print machine
         run: |
-            echo "Running on parallel machine ${{ matrix.parallel-machine }}"
+            echo "Running on parallel machine ${{ matrix.parallel-step }}"
