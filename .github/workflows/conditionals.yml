@@ -1,0 +1,62 @@
+#  Copyright 2021 Collate
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#  http://www.apache.org/licenses/LICENSE-2.0
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: MySQL Cypress Integration Tests
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - labeled
+    paths:
+      - '**/*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cypress-integration-tests-mysql-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  cypress-ci-mysql:
+    if: |
+        ${{ github.event_name == 'schedule'
+            || ( ${{ github.event_name }} == 'pull_request'
+                 && contains(${{ github.event.pull_request.labels.*.name }}, 'e2e')
+                 && ${{ github.event.pull_request.draft }} == false )
+               ) }}
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - name: Print output
+        run: |
+          if [[ ${{ github.event_name }} == 'schedule' || ( ${{ github.event_name }} == 'pull_request' && contains(${{ github.event.pull_request.labels.*.name }}, 'e2e') && ${{ github.event.pull_request.draft }} == false ) ]]; then
+            echo "${{ github.event_name }}"
+            echo "${{ github.event_name }}"
+            echo "${{ github.event.pull_request.labels.*.name }}"
+            echo "${{ github.event.pull_request.draft }}"
+          else
+            echo "Workflow should not run based on the conditions."
+            echo "${{ github.event_name }}"
+            echo "${{ github.event_name }}"
+            echo "${{ github.event.pull_request.labels.*.name }}"
+            echo "${{ github.event.pull_request.draft }}"
+            exit 1
+          fi
