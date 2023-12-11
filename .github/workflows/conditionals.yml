@@ -48,6 +48,9 @@ jobs:
                  && github.event.pull_request.draft == false
                )
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        parallel-machine: [1, 2, 3, 4]
     environment: test
     steps:
       - name: Print output
@@ -55,3 +58,4 @@ jobs:
             echo "${{ github.event_name }}"
             echo "${{ github.event.pull_request.labels.*.name }}"
             echo "${{ github.event.pull_request.draft }}"
+            echo "Running on parallel machine ${{ matrix.parallel-machine }}"
