@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        parallel-machine: [1, 2]
+        parallel-step: [1, 2]
     environment: test
     steps:
       - name: Print output
