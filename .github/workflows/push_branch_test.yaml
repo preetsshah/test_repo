@@ -1,0 +1,25 @@
+#For the provider URL: Use https://token.actions.githubusercontent.com
+#For the "Audience": Use sts.amazonaws.com 
+name: Test Branch Name
+on:
+  push:
+    branches:
+      - publish
+jobs:
+  branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      # Install node v16.20.2
+      - name: Print branch
+        run: |
+          echo ${{ github.ref.GITHUB_REF_NAME }}
+
+      # checkout repository with brnach selected for branch_name
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref.GITHUB_REF_NAME }}
+          
+      - name: Print directory content
+        run: |
+          ls -la
