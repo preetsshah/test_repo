@@ -27,7 +27,6 @@ jobs:
           
       - name: Send payload file to slack
         id: slack
-        continue-on-error: true
         uses: slackapi/slack-github-action@v1.24.0
         with:
           payload: |
