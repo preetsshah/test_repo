@@ -12,7 +12,7 @@ jobs:
       # Install node v16.20.2
       - name: Print branch
         run: |
-          echo ${{ GITHUB_REF }}
+          echo "${{ github.ref.GITHUB_REF_NAME }}"
 
       # checkout repository with brnach selected for branch_name
       - name: Checkout
