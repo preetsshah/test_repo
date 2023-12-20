@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Select branch
         run: |
-          echo "BRANCH=$(if [ '${{ github.event_name }}' = 'pull_request' ]; then echo ${{ github.event.pull_request.head.sha }}; else echo ${{ github.ref.GITHUB_REF_NAME }}; fi)" >> $GITHUB_ENV
+          echo BRANCH=$(if [ '${{ github.event_name }}' = 'pull_request' ]; then echo ${{ github.event.pull_request.head.sha }}; else echo ${{ github.ref.GITHUB_REF_NAME }}; fi) >> $GITHUB_ENV
           echo "${{ env.BRANCH }}"
           
       - name: Checkout
