@@ -40,7 +40,6 @@ jobs:
                     "text": "<!here> Link-checker build result: *${{ job.status }}*\n Please check the <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build URL> for logs and linkchecker report."
                   }
                 }
-                }
               ]
             }
         env:
