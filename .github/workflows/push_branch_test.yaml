@@ -5,6 +5,13 @@ on:
   push:
     branches:
       - publish
+  pull_request_target:
+    types:
+      - labeled
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
 
 jobs:
   branch-name:
@@ -24,6 +31,7 @@ jobs:
       - name: Print directory content
         run: |
           ls -la
+          cat push_event_file.txt
           
       - name: Send payload file to slack
         id: slack
