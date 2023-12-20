@@ -17,16 +17,15 @@ jobs:
   branch-name:
     runs-on: ubuntu-latest
     steps:
-      # Install node v16.20.2
-      - name: Print branch
+      - name: Select branch
         run: |
-          echo "${{ github.ref.GITHUB_REF_NAME }}"
-
-      # checkout repository with brnach selected for branch_name
+          echo "BRANCH=$(if [ '${{ github.event_name }}' = 'pull_request' ]; then echo ${{ github.event.pull_request.head.sha }}; else echo ${{ github.ref.GITHUB_REF_NAME }}; fi)" >> $GITHUB_ENV
+          echo "${{ env.BRANCH }}"
+          
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.ref.GITHUB_REF_NAME }}
+          ref: ${{ env.BRANCH }}
           
       - name: Print directory content
         run: |
