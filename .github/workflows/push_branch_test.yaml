@@ -17,15 +17,15 @@ jobs:
   branch-name:
     runs-on: ubuntu-latest
     steps:
-      - name: Select branch
-        run: |
-          echo BRANCH=$(if [ '${{ github.event_name }}' = 'pull_request_target' ]; then echo ${{ github.event.pull_request.head.sha }}; else echo ${{ github.ref.GITHUB_REF_NAME }}; fi) >> $GITHUB_ENV
-          echo "${{ env.BRANCH }}"
+      # - name: Select branch
+      #   run: |
+      #     echo BRANCH=$(if [ '${{ github.event_name }}' = 'pull_request_target' ]; then echo ${{ github.event.pull_request.head.sha }}; else echo ${{ github.ref.GITHUB_REF_NAME }}; fi) >> $GITHUB_ENV
+      #     echo "${{ env.BRANCH }}"
           
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ env.BRANCH }}
+          ref: ${{ github.event.pull_request_target.head.sha }}
           
       - name: Print directory content
         run: |
