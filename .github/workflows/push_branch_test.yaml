@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - publish
+
 jobs:
   branch-name:
     runs-on: ubuntu-latest
@@ -23,3 +24,26 @@ jobs:
       - name: Print directory content
         run: |
           ls -la
+          
+      - name: Send payload file to slack
+        id: slack
+        continue-on-error: true
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "Link-checker build result: ${{ job.status }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<!here> Link-checker build result: *${{ job.status }}*\n Please check the <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Build URL> for logs and linkchecker report."
+                  }
+                }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
