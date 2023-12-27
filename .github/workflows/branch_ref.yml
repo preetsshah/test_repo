@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: Set TEMP Environment Variable
         run: |
-          elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "TEMP=wd" >> $GITHUB_ENV
           elif [ "${{ github.event_name }}" == "schedule" ]; then
             echo "TEMP=sc" >> $GITHUB_ENV
