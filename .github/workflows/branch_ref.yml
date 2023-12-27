@@ -33,6 +33,11 @@ jobs:
       
       - name: Print TEMP
         run: |
+          if [ $ENV_VAR == "24t3df" ]; then
+            echo "PR_SECRET"
+          elif [ $ENV_VAR == "a9yxci" ]; then
+            echo "SCHEDULE_SECRET"
+          fi
           echo $ENV_VAR
         env:
           ENV_VAR: ${{ env.TEMP }}
