@@ -3,6 +3,8 @@
 name: Test tagging
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '2 * * * *'
     # inputs:
     #   deploy_to_production:
     #     description: "Deploy to production environment?"
@@ -21,7 +23,14 @@ jobs:
   npm-build-push:
     runs-on: ubuntu-latest
     steps:
-      # Update build artifacts on production environment
-      # Export timestamp and branch name to environment variables
-      - name: Export env variables
-        run: echo "Please execute the workflow with Production or Staging branch"
+      - name: Set TEMP Environment Variable
+        run: |
+          elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "TEMP=wd" >> $GITHUB_ENV
+          elif [ "${{ github.event_name }}" == "schedule" ]; then
+            echo "TEMP=sc" >> $GITHUB_ENV
+          fi
+      
+      - name: Print TEMP
+        run: |
+          echo "TEMP = ${{ env.TEMP }}"
