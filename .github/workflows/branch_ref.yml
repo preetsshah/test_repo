@@ -3,8 +3,8 @@
 name: Test tagging
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: '*/2 * * * *'
+  schedule:
+    - cron: '*/2 * * * *'
     # inputs:
     #   deploy_to_production:
     #     description: "Deploy to production environment?"
@@ -24,11 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set TEMP Environment Variable
+        id: project_secret
         run: |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "TEMP=${{ secrets.PR_SECRET }}" >> $GITHUB_ENV
+            echo "TEMP=${{ secrets.PR_SECRET }}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" == "schedule" ]; then
-            echo "TEMP=${{ secrets.SCHEDULE_SECRET }}" >> $GITHUB_ENV
+            echo "TEMP=${{ secrets.SCHEDULE_SECRET }}" >> $GITHUB_OUTPUT
           fi
       
       - name: Print TEMP
@@ -40,4 +41,4 @@ jobs:
           fi
           echo $ENV_VAR
         env:
-          ENV_VAR: ${{ env.TEMP }}
+          ENV_VAR: ${{ steps.project_secret.outputs.TEMP }}
