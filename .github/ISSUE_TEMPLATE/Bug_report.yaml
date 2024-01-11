@@ -1,5 +1,5 @@
 name: Bug Report
-description: Tell us about something abut what went wrong.
+description: Tell us something about what went wrong.
 labels: [ "kind/bug" ]
 body:
   - type: markdown
