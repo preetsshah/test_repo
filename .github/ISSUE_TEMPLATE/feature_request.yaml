@@ -1,5 +1,5 @@
 name: Feature Request
-description: Tell us about something abut what went wrong.
+description: Help us with the feature you are trying to achieve.
 labels: [ "kind/bug" ]
 body:
   - type: markdown
