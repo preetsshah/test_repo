@@ -45,7 +45,6 @@ body:
       label: Chart Version
       description: "You can get it from the output of 'helm list' command"
       placeholder: "X.X.X"
-      render: shell
     validations:
       required: true
   
@@ -55,7 +54,6 @@ body:
       label: App Version
       description: "You can get it from the output of 'helm list' command"
       placeholder: "X.X.X"
-      render: shell
     validations:
       required: true
   
