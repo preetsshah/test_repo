@@ -63,9 +63,7 @@ body:
     attributes:
       label: Kubernetes Version
       description: "Output of `kubectl version` command."
-      placeholder: |
-          Client Version: version.Info{Major:"X", Minor:"XX", GitVersion:"vX.X.X", ...}
-          Server Version: version.Info{Major:"X", Minor:"XX", GitVersion:"vX.X.X", ...}
+      placeholder: {Version:"vX.X.X"}
     validations:
       required: true
   
@@ -74,7 +72,7 @@ body:
     attributes:
       label: Helm Version
       description: "Output of `helm version` command."
-      placeholder: version.BuildInfo{Version:"vX.X.X", GitCommit:"XXXXXXXXXXXXXXX", ...}
+      placeholder: {Version:"vX.X.X"}
     validations:
       required: true
   
