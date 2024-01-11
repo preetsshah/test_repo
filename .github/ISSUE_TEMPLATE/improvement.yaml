@@ -1,4 +1,4 @@
-name: Bug Report
+name: Feature Request
 description: Tell us about something abut what went wrong.
 labels: [ "kind/bug" ]
 body:
