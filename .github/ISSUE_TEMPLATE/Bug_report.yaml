@@ -63,7 +63,8 @@ body:
     attributes:
       label: Kubernetes Version
       description: "Output of `kubectl version` command."
-      placeholder: {Version:"vX.X.X"}
+      placeholder: |
+        {Version:"vX.X.X"}
     validations:
       required: true
   
@@ -72,7 +73,8 @@ body:
     attributes:
       label: Helm Version
       description: "Output of `helm version` command."
-      placeholder: {Version:"vX.X.X"}
+      placeholder: |
+        {Version:"vX.X.X"}
     validations:
       required: true
   
