@@ -58,7 +58,7 @@ body:
     validations:
       required: true
   
-  - type: textarea
+  - type: input
     id: k8s-version
     attributes:
       label: Kubernetes Version
@@ -70,7 +70,7 @@ body:
     validations:
       required: true
   
-  - type: textarea
+  - type: input
     id: helm-version
     attributes:
       label: Helm Version
