@@ -36,7 +36,7 @@ body:
       description: How can we reproduce the issue you are facing?
       placeholder: |
         "Step - 1: Update values.yaml as below..."
-        "Step - 1: Install Openmetadata helm chart with updated values.yaml"
+        "Step - 2: Install Openmetadata helm chart with updated values.yaml"
     validations:
       required: false
   
