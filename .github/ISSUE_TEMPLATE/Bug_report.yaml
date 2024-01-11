@@ -66,7 +66,6 @@ body:
       placeholder: |
           Client Version: version.Info{Major:"X", Minor:"XX", GitVersion:"vX.X.X", ...}
           Server Version: version.Info{Major:"X", Minor:"XX", GitVersion:"vX.X.X", ...}
-      render: shell
     validations:
       required: true
   
@@ -76,7 +75,6 @@ body:
       label: Helm Version
       description: "Output of `helm version` command."
       placeholder: version.BuildInfo{Version:"vX.X.X", GitCommit:"XXXXXXXXXXXXXXX", ...}
-      render: shell
     validations:
       required: true
   
