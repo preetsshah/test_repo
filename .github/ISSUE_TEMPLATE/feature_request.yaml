@@ -1,6 +1,6 @@
 name: Feature Request
 description: Help us with the feature you are trying to achieve.
-labels: [ "kind/bug" ]
+labels: [ "kind/enhancement" ]
 body:
   - type: markdown
     attributes:
