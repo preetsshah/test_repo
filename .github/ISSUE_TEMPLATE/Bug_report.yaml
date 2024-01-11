@@ -10,6 +10,7 @@ body:
         Thanks for helping make Openmetadata better!
         
   - type: checkboxes
+    id: checks
     attributes:
       label: Checks
       description: Please check the applicable options.
@@ -22,6 +23,7 @@ body:
           required: false
   
   - type: textarea
+    id: description
     attributes:
       label: Description
       description: The context the problem occurred in, and an overview of what went wrong.
@@ -31,6 +33,7 @@ body:
       required: true
   
   - type: textarea
+    id: steps-to-reproduce
     attributes:
       label: Steps to reproduce
       description: How can we reproduce the issue you are facing?
@@ -99,6 +102,7 @@ body:
       render: yaml
   
   - type: dropdown
+    id: community
     attributes:
       label: Have you joined Openmetadata Slack community?
       description: You can join our slack community from [here](https://open-metadata.org/community)
