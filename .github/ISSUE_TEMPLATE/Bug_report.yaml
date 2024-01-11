@@ -35,7 +35,6 @@ body:
       label: Steps to reproduce
       description: How can we reproduce the issue you are facing?
       placeholder: "Step - 1: Update values.yaml as below..."
-      value: Steps To Reproduce
     validations:
       required: false
   
