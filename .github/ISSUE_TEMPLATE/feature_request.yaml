@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        # Bug Report
+        # Feature request
         
         Thanks for helping make Openmetadata better!
         
@@ -27,8 +27,7 @@ body:
     attributes:
       label: Description
       description: The context the problem occurred in, and an overview of what went wrong.
-      placeholder: "While trying to deploy chart..."
-      value: Bug Description
+      placeholder: "What feature you are trying to achieve?"
     validations:
       required: true
   
@@ -37,7 +36,7 @@ body:
     attributes:
       label: Proposed Implementation
       description: What is your proposed implementation?
-      placeholder: "You can leave this blaank if you don't have an implementation in mind at the moment."
+      placeholder: "You can leave this blank if you don't have an implementation in mind at the moment."
     validations:
       required: true
   
